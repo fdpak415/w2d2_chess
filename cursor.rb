@@ -34,7 +34,7 @@ class Cursor
 
   attr_reader :cursor_pos, :board
 
-  def initialize(cursor_pos, board)
+  def initialize(board,cursor_pos=[0,0])
     @cursor_pos = cursor_pos
     @board = board
   end
@@ -76,8 +76,30 @@ class Cursor
   end
 
   def handle_key(key)
+    case key
+    when :return || :space
+      @cursor_pos
+    when :left
+      update_pos(MOVES[:left])
+      nil
+    when :right
+      update_pos(MOVES[:right])
+      nil
+    when :up
+      update_pos(MOVES[:up])
+      nil
+    when :down
+      update_pos(MOVES[:down])
+      nil
+    when :ctrl_c
+      Process.exit(0)
+    end
+
   end
 
   def update_pos(diff)
+    @cursor_pos[0] = @cursor_pos[0] + diff[0]
+    @cursor_pos[1] = @cursor_pos[1] + diff[1]
   end
+
 end
