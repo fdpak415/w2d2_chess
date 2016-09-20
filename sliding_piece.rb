@@ -1,15 +1,12 @@
 require_relative "null_piece.rb"
+require "byebug"
 
 module SlidingPiece
 
-  def moves(move_dirs)
+  def moves(move_dirs,board)
     result = []
-
-    if move_dirs[:diagonals]
-      result += diagonals(pos, board)
-    elsif move_dirs[:straight]
-      result += straight(pos, board)
-    end
+    result += diagonals(pos, board) if move_dirs[:diagonals]
+    result += straight(pos, board) if move_dirs[:straight]
 
     result
   end
@@ -27,8 +24,11 @@ module SlidingPiece
 
   def nw(pos, board)
     #NW
-    until true
-      next_pos = [pos.first - 1, pos.last - 1]
+    result = []
+    x_offset = -1
+    y_offset = -1
+    while true
+      next_pos = [pos.first + x_offset, pos.last + y_offset]
       if !within_board?(next_pos, board)
         break
       elsif board[next_pos].class != NullPiece
@@ -37,14 +37,19 @@ module SlidingPiece
       else
         result << next_pos
       end
+      x_offset -= 1
+      y_offset -= 1
     end
     result
   end
 
   def ne(pos, board)
     #NE
-    until true
-      next_pos = [pos.first - 1, pos.last + 1]
+    result = []
+    x_offset = -1
+    y_offset = 1
+    while true
+      next_pos = [pos.first + x_offset, pos.last + y_offset]
       if !within_board?(next_pos, board)
         break
       elsif board[next_pos].class != NullPiece
@@ -53,14 +58,19 @@ module SlidingPiece
       else
         result << next_pos
       end
+      x_offset -= 1
+      y_offset += 1
     end
     result
   end
 
   def se(pos, board)
     #SE
-    until true
-      next_pos = [pos.first + 1, pos.last + 1]
+    result = []
+    x_offset = 1
+    y_offset = 1
+    while true
+      next_pos = [pos.first + x_offset, pos.last + y_offset]
       if !within_board?(next_pos, board)
         break
       elsif board[next_pos].class != NullPiece
@@ -69,14 +79,19 @@ module SlidingPiece
       else
         result << next_pos
       end
+      x_offset += 1
+      y_offset += 1
     end
     result
   end
 
   def sw(pos, board)
     #SW
-    until true
-      next_pos = [pos.first + 1, pos.last - 1]
+    result = []
+    x_offset = 1
+    y_offset = -1
+    while true
+      next_pos = [pos.first + x_offset, pos.last + y_offset]
       if !within_board?(next_pos, board)
         break
       elsif board[next_pos].class != NullPiece
@@ -85,13 +100,98 @@ module SlidingPiece
       else
         result << next_pos
       end
+      x_offset += 1
+      y_offset -= 1
     end
     result
   end
 
   def straight(pos, board)
+    n(pos, board) + e(pos, board) + s(pos, board) + w(pos, board)
+  end
+
+  def n(pos, board)
+    #North
+    result = []
+    x_offset = -1
+    y_offset = 0
+    while true
+      next_pos = [pos.first + x_offset, pos.last + y_offset]
+      if !within_board?(next_pos, board)
+        break
+      elsif board[next_pos].class != NullPiece
+        #Check for enemy / self piece
+        break
+      else
+        result << next_pos
+      end
+      x_offset -= 1
+      y_offset += 0
+    end
+    result
 
   end
 
+  def e(pos, board)
+    #East
+    result = []
+    x_offset = 0
+    y_offset = 1
+    while true
+      next_pos = [pos.first + x_offset, pos.last + y_offset]
+      if !within_board?(next_pos, board)
+        break
+      elsif board[next_pos].class != NullPiece
+        #Check for enemy / self piece
+        break
+      else
+        result << next_pos
+      end
+      x_offset += 0
+      y_offset += 1
+    end
+    result
+  end
 
+  def s(pos, board)
+    #South
+    result = []
+    x_offset = 1
+    y_offset = 0
+    while true
+      next_pos = [pos.first + x_offset, pos.last + y_offset]
+      if !within_board?(next_pos, board)
+        break
+      elsif board[next_pos].class != NullPiece
+        #Check for enemy / self piece
+        break
+      else
+        result << next_pos
+      end
+      x_offset += 1
+      y_offset += 0
+    end
+    result
+  end
+
+  def w(pos, board)
+    #West
+    result = []
+    x_offset = 0
+    y_offset = -1
+    while true
+      next_pos = [pos.first + x_offset, pos.last + y_offset]
+      if !within_board?(next_pos, board)
+        break
+      elsif board[next_pos].class != NullPiece
+        #Check for enemy / self piece
+        break
+      else
+        result << next_pos
+      end
+      x_offset += 0
+      y_offset -= 1
+    end
+    result
+  end
 end
