@@ -15,9 +15,34 @@ class Board
   #def initialize(grid=Array.new(8) {Array.new(8) {Piece.new(self)}})
   def initialize(grid=Array.new(8) {Array.new(8) {nil}})
     @grid = grid
-    #remove everything below
-    #@grid[3][3] = Knight.new(self,[3,3], white)
-    #@grid[3][2] = nil#Queen.new(self,[3,4])
+    place_black_pieces
+    place_white_pieces
+    assign_null_piece
+  end
+
+  def in_check?(color)
+    king_pos = find_king_pos(color)
+
+    @grid.each do |row|
+      row.each do |square|
+        #how to check
+        if square.class != NullPiece && square.color != color
+          p "flag"
+          return true if square.moves(square.move_dirs,self).include?(king_pos)
+        end
+      end
+    end
+    false
+  end
+
+  def find_king_pos(color)
+    @grid.each do |row|
+      row.each do |square|
+        if square.class == King && square.color == color
+          return square.pos
+        end
+      end
+    end
   end
 
   def place_black_pieces
@@ -98,8 +123,8 @@ class Board
 
 end
 
-b = Board.new
-b.place_white_pieces
-b.place_black_pieces
-b.assign_null_piece
-p b.grid
+# b = Board.new
+#
+# p b.grid
+# pawn = b[[1,3]]
+# p pawn.moves
