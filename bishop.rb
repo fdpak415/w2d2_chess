@@ -1,6 +1,5 @@
 require_relative 'sliding_piece.rb'
 require_relative 'pieces.rb'
-require_relative 'null_piece.rb'
 require 'byebug'
 
 class Bishop < Piece
@@ -8,14 +7,9 @@ class Bishop < Piece
 
   attr_reader :move_dirs
 
-  def initialize(board, pos)
+  def initialize(board, pos, color)
     @move_dirs = {:diagonals => true, :straight => false}
-    super(board,pos)
+    super(board,pos, color)
   end
 
 end
-  # debugger
-b = Board.new
-bish = b.grid[3][3]
-
-p bish.moves(bish.move_dirs,b)

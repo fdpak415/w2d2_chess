@@ -1,6 +1,5 @@
 require_relative 'stepping_piece.rb'
 require_relative 'pieces.rb'
-require_relative 'null_piece.rb'
 require 'byebug'
 
 class King < Piece
@@ -8,14 +7,9 @@ class King < Piece
 
   attr_reader :move_dirs
 
-  def initialize(board, pos)
+  def initialize(board, pos, color)
     @move_dirs = {:knight => false}
-    super(board, pos)
+    super(board, pos, color)
   end
 
 end
-
-b = Board.new
-k = b.grid[3][3]
-#
-p k.moves(k.move_dirs,b)
