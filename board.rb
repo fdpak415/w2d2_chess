@@ -9,7 +9,7 @@ class Board
   def initialize(grid=Array.new(8) {Array.new(8) {NullPiece.new}})
     @grid = grid
     #remove everything below
-    @grid[3][3] = Bishop.new(self,[3,3])
+    @grid[3][3] = Knight.new(self,[3,3])
     #@grid[3][2] = nil#Queen.new(self,[3,4])
   end
 
