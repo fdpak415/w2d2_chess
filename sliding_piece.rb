@@ -1,11 +1,13 @@
+require_relative "null_piece.rb"
+
 module SlidingPiece
 
-  def moves(move_dir)
+  def moves(move_dirs)
     result = []
 
-    if move_dir[:diagonals]
+    if move_dirs[:diagonals]
       result += diagonals(pos, board)
-    elsif move_dir[:straight]
+    elsif move_dirs[:straight]
       result += straight(pos, board)
     end
 

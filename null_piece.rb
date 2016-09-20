@@ -1,6 +1,7 @@
 class NullPiece
-  include Singleton
-  
+  #include Singleton
+
   def initialize
   end
+
 end

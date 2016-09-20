@@ -1,9 +1,12 @@
+require_relative "board.rb"
+require_relative "null_piece.rb"
+
 class Piece
 attr_accessor :pos
 
   def initialize(board, pos = nil)
-    @pos = pos
     @board = board
+    @pos = pos
   end
 
   def moves

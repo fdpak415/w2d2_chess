@@ -1,11 +1,15 @@
 require_relative "pieces.rb"
+require_relative 'null_piece.rb'
 
 class Board
 
   attr_reader :grid
 
-  def initialize(grid=Array.new(8) {Array.new(8) {Piece.new(self)}})
+  #def initialize(grid=Array.new(8) {Array.new(8) {Piece.new(self)}})
+  def initialize(grid=Array.new(8) {Array.new(8) {NullPiece.new}})
     @grid = grid
+    #remove everything below
+    @grid[4][4] = Bishop.new(self,[4,4])
   end
 
   def [](pos)
