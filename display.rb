@@ -31,9 +31,9 @@ end
 b = Board.new
 c = Cursor.new(b)
 d = Display.new(c)
-
-while true
-  d.render
-  c.get_input
-  system("clear")
-end
+p b.grid
+# while true
+#   d.render
+#   c.get_input
+#   system("clear")
+# end
