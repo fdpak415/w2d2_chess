@@ -32,7 +32,12 @@ module SlidingPiece
       if !within_board?(next_pos, board)
         break
       elsif board[next_pos].class != NullPiece
-        break if board[next_pos].color == color
+        if board[next_pos].color == color
+          break
+        else
+          result << next_pos
+          break
+        end
       else
         result << next_pos
       end
@@ -52,8 +57,12 @@ module SlidingPiece
       if !within_board?(next_pos, board)
         break
       elsif board[next_pos].class != NullPiece
-        #Check for enemy / self piece
-        break
+        if board[next_pos].color == color
+          break
+        else
+          result << next_pos
+          break
+        end
       else
         result << next_pos
       end
@@ -73,8 +82,12 @@ module SlidingPiece
       if !within_board?(next_pos, board)
         break
       elsif board[next_pos].class != NullPiece
-        #Check for enemy / self piece
-        break
+        if board[next_pos].color == color
+          break
+        else
+          result << next_pos
+          break
+        end
       else
         result << next_pos
       end
@@ -94,8 +107,12 @@ module SlidingPiece
       if !within_board?(next_pos, board)
         break
       elsif board[next_pos].class != NullPiece
-        #Check for enemy / self piece
-        break
+        if board[next_pos].color == color
+          break
+        else
+          result << next_pos
+          break
+        end
       else
         result << next_pos
       end
@@ -119,8 +136,12 @@ module SlidingPiece
       if !within_board?(next_pos, board)
         break
       elsif board[next_pos].class != NullPiece
-        #Check for enemy / self piece
-        break
+        if board[next_pos].color == color
+          break
+        else
+          result << next_pos
+          break
+        end
       else
         result << next_pos
       end
@@ -141,8 +162,12 @@ module SlidingPiece
       if !within_board?(next_pos, board)
         break
       elsif board[next_pos].class != NullPiece
-        #Check for enemy / self piece
-        break
+        if board[next_pos].color == color
+          break
+        else
+          result << next_pos
+          break
+        end
       else
         result << next_pos
       end
@@ -162,8 +187,12 @@ module SlidingPiece
       if !within_board?(next_pos, board)
         break
       elsif board[next_pos].class != NullPiece
-        #Check for enemy / self piece
-        break
+        if board[next_pos].color == color
+          break
+        else
+          result << next_pos
+          break
+        end
       else
         result << next_pos
       end
@@ -183,8 +212,12 @@ module SlidingPiece
       if !within_board?(next_pos, board)
         break
       elsif board[next_pos].class != NullPiece
-        #Check for enemy / self piece
-        break
+        if board[next_pos].color == color
+          break
+        else
+          result << next_pos
+          break
+        end
       else
         result << next_pos
       end

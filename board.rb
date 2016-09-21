@@ -20,6 +20,34 @@ class Board
     assign_null_piece
   end
 
+  def move(start_pos)
+    piece = self[start_pos]
+    piece_moves = piece.moves(piece.move_dirs,self)
+    begin
+      puts "Where do you want to move? ex: 3,3"
+      input = gets.chomp
+      new_pos = [input[0].to_i,input[-1].to_i]
+      if piece_moves.include?(new_pos)
+        self[start_pos] = NullPiece.instance
+        NullPiece.instance.add_pos(start_pos)
+        self[new_pos] = piece
+        piece.pos = new_pos
+      end
+    rescue
+      puts "Incorrect move!"
+      retry
+    end
+  end
+
+
+  def deep_dup
+    result = []
+    self.grid.each do |el|
+      el.is_a?(Array) ? result << el.deep_dup : result << el
+    end
+    result
+  end
+
   def in_check?(color)
     king_pos = find_king_pos(color)
 
@@ -27,7 +55,6 @@ class Board
       row.each do |square|
         #how to check
         if square.class != NullPiece && square.color != color
-          p "flag"
           return true if square.moves(square.move_dirs,self).include?(king_pos)
         end
       end
@@ -108,17 +135,17 @@ class Board
     @grid[row][col] = value
   end
 
-  def move(start_pos_pos, end_pos)
-    if @grid[start_pos_pos].nil?
-      raise "There is no piece to move here"
-    elsif @grid[end_pos].class != NullPiece
-      raise "You cannot move there, there is already a piece there"
-    end
-    @grid[start_pos].pos = [end_pos]
-    @grid[end_pos].pos = [start_pos]
-    #remember to adjust for capturing pieces
-    @grid[start_pos], @grid[end_pos] = @grid[end_pos], @grid[start_pos]
-  end
+  # def move(start_pos_pos, end_pos)
+  #   if @grid[start_pos_pos].nil?
+  #     raise "There is no piece to move here"
+  #   elsif @grid[end_pos].class != NullPiece
+  #     raise "You cannot move there, there is already a piece there"
+  #   end
+  #   @grid[start_pos].pos = [end_pos]
+  #   @grid[end_pos].pos = [start_pos]
+  #   #remember to adjust for capturing pieces
+  #   @grid[start_pos], @grid[end_pos] = @grid[end_pos], @grid[start_pos]
+  # end
 
 
 end
